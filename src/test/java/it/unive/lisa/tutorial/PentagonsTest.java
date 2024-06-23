@@ -1,17 +1,14 @@
 package it.unive.lisa.tutorial;
 
-import it.unive.lisa.analysis.heap.pointbased.FieldSensitivePointBasedHeap;
-import org.junit.Test;
-
 import it.unive.lisa.AnalysisException;
 import it.unive.lisa.DefaultConfiguration;
 import it.unive.lisa.LiSA;
-
 import it.unive.lisa.conf.LiSAConfiguration;
 import it.unive.lisa.conf.LiSAConfiguration.GraphType;
 import it.unive.lisa.imp.IMPFrontend;
 import it.unive.lisa.imp.ParsingException;
 import it.unive.lisa.program.Program;
+import org.junit.Test;
 
 public class PentagonsTest {
 

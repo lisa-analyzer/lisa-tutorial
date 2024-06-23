@@ -72,17 +72,14 @@ public class Pentagons
 		for (Entry<Identifier, UpperBounds> entry : other.upperbounds)
 			for (Identifier bound : entry.getValue()) {
 				if (this.upperbounds.getState(entry.getKey()).contains(bound))
-					return false;
+					continue;
 
 				Interval state = this.intervals.getState(entry.getKey());
 				Interval boundState = this.intervals.getState(bound);
-				if (state.isBottom() && !boundState.isBottom())
-					return false;
-				if (boundState.isBottom())
-					return false;
-
 				if (state.interval.getHigh().compareTo(boundState.interval.getLow()) < 0)
-					return false;
+					continue;
+
+				return false;
 			}
 
 		return true;
@@ -92,7 +89,7 @@ public class Pentagons
 	public Pentagons lubAux(
 			Pentagons other)
 			throws SemanticException {
-		ValueEnvironment<UpperBounds> newBounds = upperbounds.lub(other.upperbounds);
+		ValueEnvironment<UpperBounds> newBounds = upperbounds.glb(other.upperbounds);
 		for (Entry<Identifier, UpperBounds> entry : upperbounds)
 			newBounds = closeWithOther(entry.getKey(), entry.getValue(), other.intervals, newBounds);
 
@@ -115,8 +112,6 @@ public class Pentagons
 
 		for (Identifier bound : bounds) {
 			Interval boundState = intervals.getState(bound);
-			if (boundState.isBottom())
-				continue;
 			if (state.interval.getHigh().compareTo(boundState.interval.getLow()) < 0)
 				closure.add(bound);
 		}
@@ -162,6 +157,11 @@ public class Pentagons
 							newIntervals = newIntervals.putState(id, newIntervals.getState(id)
 									.glb(new Interval(MathNumber.ONE, MathNumber.PLUS_INFINITY)));
 						}
+						Interval intv = intervals.getState(y);
+						if (!intv.isBottom() && intv.interval.getLow().compareTo(MathNumber.ZERO) > 0)
+							newBounds = upperbounds.putState(id, upperbounds.getState(x).add(x));
+						else
+							newBounds = upperbounds.putState(id, upperbounds.lattice.top());
 					} else if (be.getRight() instanceof Constant)
 						// r = x + 2 (where 2 is the constant)
 						newBounds = newBounds.putState(id, upperbounds.getState(x).add(x));

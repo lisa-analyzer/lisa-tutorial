@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f567f69c-d68f-411c-a3e0-2402922397cb" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inputs/taint.imp" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/taint.imp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unive/lisa/tutorial/Pentagons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unive/lisa/tutorial/Pentagons.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unive/lisa/tutorial/Taint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unive/lisa/tutorial/Taint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unive/lisa/tutorial/TaintCheck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unive/lisa/tutorial/TaintCheck.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/it/unive/lisa/tutorial/TaintTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/it/unive/lisa/tutorial/TaintTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unive/lisa/tutorial/Signs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unive/lisa/tutorial/Signs.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,32 +90,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.Build LiSATutorial.executor": "Run",
-    "Gradle.LiSATutorial [assemble].executor": "Run",
-    "Gradle.LiSATutorial [dependencies].executor": "Run",
-    "Gradle.PentagonsTest.testPentagons.executor": "Run",
-    "Gradle.TaintTest.testTaint.executor": "Run",
-    "Gradle.UpperBoundsTest.testUpperBounds.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_directory_selection": "/home/luca/gits/lisa-projects/LiSATutorial/src/main/java/it/unive/lisa/tutorial",
-    "last_opened_file_path": "/home/luca/gits/lisa-projects/LiSATutorial/src/test/java",
-    "onboarding.tips.debug.path": "/home/luca/gits/lisa-projects/LiSATutorial/src/main/java/it/unive/Main.java",
-    "project.structure.last.edited": "Problems",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "Errors"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.Build LiSATutorial.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LiSATutorial [assemble].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LiSATutorial [dependencies].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PentagonsTest.testPentagons.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TaintTest.testTaint.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UpperBoundsTest.testUpperBounds.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_directory_selection&quot;: &quot;/home/luca/gits/lisa-projects/LiSATutorial/src/main/java/it/unive/lisa/tutorial&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/luca/gits/lisa-projects/LiSATutorial/src/test/java&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;/home/luca/gits/lisa-projects/LiSATutorial/src/main/java/it/unive/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;Errors&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/test/java" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.TaintTest.testTaint">
+  <component name="RunManager" selected="Gradle.PentagonsTest.testPentagons">
     <configuration name="LiSATutorial [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -241,8 +236,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.TaintTest.testTaint" />
         <item itemvalue="Gradle.PentagonsTest.testPentagons" />
+        <item itemvalue="Gradle.TaintTest.testTaint" />
         <item itemvalue="Gradle.UpperBoundsTest.testUpperBounds" />
         <item itemvalue="Gradle.SignsTest.testSigns" />
         <item itemvalue="Gradle.LiSATutorial [dependencies]" />

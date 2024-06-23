@@ -55,7 +55,6 @@ public class TaintTest {
         // we instantiate LiSA with our configuration
         LiSA lisa = new LiSA(conf);
 
-
         // finally, we tell LiSA to analyze the program
         LiSAReport report = lisa.run(program);
 

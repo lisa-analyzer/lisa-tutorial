@@ -112,26 +112,17 @@ public class UpperBounds
 					.glb(new UpperBounds(Collections.singleton(rightId)));
 			return environment.putState(leftId, set);
 		} else if (operator instanceof ComparisonEq) {
-
 			UpperBounds set = environment.getState(leftId).glb(environment.getState(rightId));
 			return environment.putState(leftId, set).putState(rightId, set);
-
+		} else if (operator instanceof ComparisonLe) {
+			UpperBounds set = environment.getState(leftId).glb(environment.getState(rightId));
+			return environment.putState(leftId, set);
 		} else if (operator instanceof ComparisonGt) {
 			// x > y --> y < x
-
-			UpperBounds set = environment.getState(rightId).glb(environment.getState(leftId))
-					.glb(new UpperBounds(Collections.singleton(leftId)));
-			return environment.putState(rightId, set);
-		} else if (operator instanceof ComparisonLe) {
-			// x <= y
-			UpperBounds set = environment.getState(leftId).glb(environment.getState(rightId));
-
-			return environment.putState(leftId, set);
+			return assumeBinaryExpression(environment, ComparisonLt.INSTANCE, right, left, src, dest, oracle);
 		} else if (operator instanceof ComparisonGe) {
 			// x >= y --> y <= x
-			UpperBounds set = environment.getState(rightId).glb(environment.getState(leftId));
-
-			return environment.putState(rightId, set);
+			return assumeBinaryExpression(environment, ComparisonLe.INSTANCE, right, left, src, dest, oracle);
 		}
 
 		return environment;
