@@ -6,8 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="f567f69c-d68f-411c-a3e0-2402922397cb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/unive/lisa/tutorial/Signs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unive/lisa/tutorial/Signs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/it/unive/lisa/tutorial/SignsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/it/unive/lisa/tutorial/SignsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inputs/taint.imp" beforeDir="false" afterPath="$PROJECT_DIR$/inputs/taint.imp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unive/lisa/tutorial/Pentagons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unive/lisa/tutorial/Pentagons.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unive/lisa/tutorial/Taint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unive/lisa/tutorial/Taint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unive/lisa/tutorial/TaintCheck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unive/lisa/tutorial/TaintCheck.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/it/unive/lisa/tutorial/TaintTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/it/unive/lisa/tutorial/TaintTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +120,7 @@
       <recent name="$PROJECT_DIR$/src/test/java" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.PentagonsTest.testPentagons">
+  <component name="RunManager" selected="Gradle.TaintTest.testTaint">
     <configuration name="LiSATutorial [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -238,9 +241,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.TaintTest.testTaint" />
         <item itemvalue="Gradle.PentagonsTest.testPentagons" />
         <item itemvalue="Gradle.UpperBoundsTest.testUpperBounds" />
-        <item itemvalue="Gradle.TaintTest.testTaint" />
         <item itemvalue="Gradle.SignsTest.testSigns" />
         <item itemvalue="Gradle.LiSATutorial [dependencies]" />
       </list>

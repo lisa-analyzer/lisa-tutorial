@@ -64,30 +64,6 @@ public class Pentagons
 		return upperbounds.isBottom() && intervals.isBottom();
 	}
 
-	// most of the operations are just forwarded to the inner domains
-
-	@Override
-	public Pentagons smallStepSemantics(
-			ValueExpression expression,
-			ProgramPoint pp,
-			SemanticOracle oracle) throws SemanticException {
-		return new Pentagons(
-				upperbounds.smallStepSemantics(expression, pp, oracle),
-				intervals.smallStepSemantics(expression, pp, oracle));
-	}
-
-	@Override
-	public Pentagons assume(
-			ValueExpression expression,
-			ProgramPoint src,
-			ProgramPoint dest,
-			SemanticOracle oracle)
-			throws SemanticException {
-		return new Pentagons(
-				upperbounds.assume(expression, src, dest, oracle),
-				intervals.assume(expression, src, dest, oracle));
-	}
-
 	@Override
 	public boolean lessOrEqualAux(Pentagons other) throws SemanticException {
 		if (!this.intervals.lessOrEqual(other.intervals))
@@ -214,6 +190,28 @@ public class Pentagons
 		return new Pentagons(newBounds, intervals);
 	}
 
+	@Override
+	public Pentagons smallStepSemantics(
+			ValueExpression expression,
+			ProgramPoint pp,
+			SemanticOracle oracle) throws SemanticException {
+		return new Pentagons(
+				upperbounds.smallStepSemantics(expression, pp, oracle),
+				intervals.smallStepSemantics(expression, pp, oracle));
+	}
+
+	@Override
+	public Pentagons assume(
+			ValueExpression expression,
+			ProgramPoint src,
+			ProgramPoint dest,
+			SemanticOracle oracle)
+			throws SemanticException {
+		return new Pentagons(
+				upperbounds.assume(expression, src, dest, oracle),
+				intervals.assume(expression, src, dest, oracle));
+	}
+	
 	@Override
 	public Pentagons forgetIdentifier(
 			Identifier id)

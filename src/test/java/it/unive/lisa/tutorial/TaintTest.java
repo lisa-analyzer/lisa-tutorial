@@ -1,5 +1,7 @@
 package it.unive.lisa.tutorial;
 
+import it.unive.lisa.LiSAReport;
+import it.unive.lisa.checks.warnings.Warning;
 import org.junit.Test;
 
 import it.unive.lisa.AnalysisException;
@@ -20,21 +22,10 @@ import it.unive.lisa.program.cfg.Parameter;
 
 public class TaintTest {
 
-
-
-    // we define the signatures for matching sources, sanitizers, and sinks
-    String[] sources = new String[] {"source1", "source2"};
-    String[] sanitizers = new String[] {"sanitizer1", "sanitizer2"};
-    String[] sinks = new String[] {"sink1", "sinks"};
-
-
     @Test
     public void testTaint() throws ParsingException, AnalysisException {
         // we parse the program to get the CFG representation of the code in it
         Program program = IMPFrontend.processFile("inputs/taint.imp");
-
-        // we load annotation for identify sources, sanitizer, and sinks during the analysis and checker execution
-        loadAnnotations(program);
 
         // we build a new configuration for the analysis
         LiSAConfiguration conf = new DefaultConfiguration();
@@ -66,55 +57,11 @@ public class TaintTest {
 
 
         // finally, we tell LiSA to analyze the program
-        lisa.run(program);
+        LiSAReport report = lisa.run(program);
+
+        // since the objective of this analysis is to generate warnings, we print them here:
+        System.out.println("The following warnings were generated:");
+        for (Warning warning : report.getWarnings())
+            System.out.println(warning);
     }
-
-
-    private void loadAnnotations(Program program) {
-
-        for(Unit unit : program.getUnits()) {
-            if(unit instanceof ClassUnit) {
-                ClassUnit cunit = (ClassUnit) unit;
-                for(CodeMember cm : cunit.getInstanceCodeMembers(false)) {
-                    if(isSource(cm))
-                        cm.getDescriptor().getAnnotations().addAnnotation(Taint.TAINTED_ANNOTATION);
-                    else if(isSanitizer(cm))
-                        cm.getDescriptor().getAnnotations().addAnnotation(Taint.CLEAN_ANNOTATION);
-                    else if(isSink(cm))
-                        for(Parameter param : cm.getDescriptor().getFormals()) {
-                            param.addAnnotation(TaintCheck.SINK_ANNOTATION);
-                        }
-                }
-            }
-        }
-
-    }
-
-
-    private boolean isSource(CodeMember cm) {
-        for(String signatureName : sources) {
-            if(cm.getDescriptor().getName().equals(signatureName))
-                return true;
-        }
-        return false;
-    }
-
-
-    private boolean isSanitizer(CodeMember cm) {
-        for(String signatureName : sanitizers) {
-            if(cm.getDescriptor().getName().equals(signatureName))
-                return true;
-        }
-        return false;
-    }
-
-
-    private boolean isSink(CodeMember cm) {
-        for(String signatureName : sinks) {
-            if(cm.getDescriptor().getName().equals(signatureName))
-                return true;
-        }
-        return false;
-    }
-
 }

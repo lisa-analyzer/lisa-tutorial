@@ -60,9 +60,6 @@ public class TaintCheck implements
 
                 // we resolve the call, i.e. we ensure that call has been correctly processed by the analysis
                 Call resolved = tool.getResolvedVersion(call, result);
-                if (resolved == null)
-                    System.err.println("Error");
-
                 if (resolved instanceof CFGCall) {
                     CFGCall cfg = (CFGCall) resolved;
                     for (CodeMember n : cfg.getTargets()) {
@@ -75,16 +72,10 @@ public class TaintCheck implements
                                         SimpleAbstractState<PointBasedHeap, ValueEnvironment<Taint>,
                                                 TypeEnvironment<InferredTypes>>> state = result
                                         .getAnalysisStateAfter(call.getParameters()[i]);
-                                Set<SymbolicExpression> reachableIds = new HashSet<>();
-                                for (SymbolicExpression e : state.getComputedExpressions())
-                                    reachableIds
-                                            .addAll(state.getState().reachableFrom(e, node, state.getState()).elements);
-
-                                for (SymbolicExpression s : reachableIds) {
+                                for (SymbolicExpression e : state.getComputedExpressions()) {
                                     ValueEnvironment<Taint> valueState = state.getState().getValueState();
 
-                                    if (valueState.eval((ValueExpression) s, node, state.getState())
-                                            .isPossiblyTainted())
+                                    if (valueState.eval((ValueExpression) e, node, state.getState()).isPossiblyTainted())
                                         // in the sink flows a possible tainted data, then we report an warning in the LiSA report result
                                         tool.warnOn(call, "The value passed for the " + StringUtilities.ordinal(i + 1)
                                                 + " parameter of this call may be tainted, and it reaches the sink at parameter '"
