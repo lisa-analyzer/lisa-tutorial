@@ -5,7 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f567f69c-d68f-411c-a3e0-2402922397cb" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unive/lisa/tutorial/Pentagons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unive/lisa/tutorial/Pentagons.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/unive/lisa/tutorial/Signs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unive/lisa/tutorial/Signs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unive/lisa/tutorial/Taint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unive/lisa/tutorial/Taint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unive/lisa/tutorial/TaintCheck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unive/lisa/tutorial/TaintCheck.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/unive/lisa/tutorial/UpperBounds.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/unive/lisa/tutorial/UpperBounds.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/it/unive/lisa/tutorial/PentagonsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/it/unive/lisa/tutorial/PentagonsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/it/unive/lisa/tutorial/UpperBoundsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/it/unive/lisa/tutorial/UpperBoundsTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +85,10 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.github.lisa-analyzer/lisa-sdk/0.1b9/ee561b854ef11bc7fd1376cb02630e861353e849/lisa-sdk-0.1b9-sources.jar!/it/unive/lisa/analysis/nonrelational/Environment.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/it/unive/lisa/tutorial/Taint.java" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
@@ -90,33 +101,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.Build LiSATutorial.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.LiSATutorial [assemble].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.LiSATutorial [dependencies].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.PentagonsTest.testPentagons.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.TaintTest.testTaint.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.UpperBoundsTest.testUpperBounds.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_directory_selection&quot;: &quot;/home/luca/gits/lisa-projects/LiSATutorial/src/main/java/it/unive/lisa/tutorial&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/luca/gits/lisa-projects/LiSATutorial/src/test/java&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;/home/luca/gits/lisa-projects/LiSATutorial/src/main/java/it/unive/Main.java&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;Errors&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.Build LiSATutorial.executor": "Run",
+    "Gradle.LiSATutorial [assemble].executor": "Run",
+    "Gradle.LiSATutorial [build].executor": "Run",
+    "Gradle.LiSATutorial [dependencies].executor": "Run",
+    "Gradle.PentagonsTest.executor": "Run",
+    "Gradle.PentagonsTest.testPentagons.executor": "Run",
+    "Gradle.SignsTest.executor": "Run",
+    "Gradle.TaintTest.testTaint.executor": "Run",
+    "Gradle.UpperBoundsTest.executor": "Run",
+    "Gradle.UpperBoundsTest.testUpperBounds.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_directory_selection": "/home/luca/gits/lisa-projects/LiSATutorial/src/main/java/it/unive/lisa/tutorial",
+    "last_opened_file_path": "/home/luca/gits/lisa-projects/LiSATutorial/src/test/java",
+    "onboarding.tips.debug.path": "/home/luca/gits/lisa-projects/LiSATutorial/src/main/java/it/unive/Main.java",
+    "project.structure.last.edited": "Problems",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "Errors"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/test/java" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.PentagonsTest.testPentagons">
-    <configuration name="LiSATutorial [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.PentagonsTest">
+    <configuration name="LiSATutorial [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -127,7 +142,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="dependencies" />
+            <option value="build" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -138,7 +153,7 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="PentagonsTest.testPentagons" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="PentagonsTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -151,7 +166,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;it.unive.lisa.tutorial.PentagonsTest.testPentagons&quot;" />
+            <option value="&quot;it.unive.lisa.tutorial.PentagonsTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -162,7 +177,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="SignsTest.testSigns" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="SignsTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -175,7 +190,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;it.unive.lisa.tutorial.SignsTest.testSigns&quot;" />
+            <option value="&quot;it.unive.lisa.tutorial.SignsTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -210,7 +225,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="UpperBoundsTest.testUpperBounds" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="UpperBoundsTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -223,7 +238,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;it.unive.lisa.tutorial.UpperBoundsTest.testUpperBounds&quot;" />
+            <option value="&quot;it.unive.lisa.tutorial.UpperBoundsTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -236,11 +251,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.PentagonsTest.testPentagons" />
+        <item itemvalue="Gradle.PentagonsTest" />
+        <item itemvalue="Gradle.UpperBoundsTest" />
         <item itemvalue="Gradle.TaintTest.testTaint" />
-        <item itemvalue="Gradle.UpperBoundsTest.testUpperBounds" />
-        <item itemvalue="Gradle.SignsTest.testSigns" />
-        <item itemvalue="Gradle.LiSATutorial [dependencies]" />
+        <item itemvalue="Gradle.SignsTest" />
+        <item itemvalue="Gradle.LiSATutorial [build]" />
       </list>
     </recent_temporary>
   </component>

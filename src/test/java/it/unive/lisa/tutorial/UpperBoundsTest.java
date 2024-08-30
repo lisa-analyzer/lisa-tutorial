@@ -1,5 +1,6 @@
 package it.unive.lisa.tutorial;
 
+import it.unive.lisa.analysis.heap.pointbased.FieldSensitivePointBasedHeap;
 import org.junit.Test;
 
 import it.unive.lisa.AnalysisException;
@@ -31,7 +32,7 @@ public class UpperBoundsTest {
         // we specify the analysis that we want to execute
 
         conf.abstractState = DefaultConfiguration.simpleState(
-                DefaultConfiguration.defaultHeapDomain(),
+                new FieldSensitivePointBasedHeap(),
                 new ValueEnvironment<>(new UpperBounds()),
                 DefaultConfiguration.defaultTypeDomain());
 

@@ -50,7 +50,8 @@ public class Signs
 	}
 
 	@Override
-	public boolean equals(Object o) {
+	public boolean equals(
+			Object o) {
 		if (this == o)
 			return true;
 		if (o == null || getClass() != o.getClass())
@@ -81,19 +82,19 @@ public class Signs
 	}
 
 	@Override
-	public Signs lubAux(
-			Signs other)
-			throws SemanticException {
-		// this and other are always incomparable when we reach here
-		return TOP;
-	}
-
-	@Override
 	public boolean lessOrEqualAux(
 			Signs other)
 			throws SemanticException {
 		// this and other are always incomparable when we reach here
 		return false;
+	}
+
+	@Override
+	public Signs lubAux(
+			Signs other)
+			throws SemanticException {
+		// this and other are always incomparable when we reach here
+		return TOP;
 	}
 
 	@Override

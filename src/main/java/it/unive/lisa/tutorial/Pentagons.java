@@ -22,6 +22,9 @@ import java.util.*;
 import java.util.Map.Entry;
 import java.util.function.Predicate;
 
+/**
+ * Implementation of the pentagons analysis of https://doi.org/10.1016/j.scico.2009.04.004
+ */
 public class Pentagons
 		// instances of this class are lattice elements such that:
 		// - their state (fields) hold the information contained into a whole program state
@@ -51,16 +54,18 @@ public class Pentagons
 
 	@Override
 	public boolean isTop() {
+		// since top() does not return a constant value, we have to override this method as well
+		// providing the logic for identifying the top element
 		return upperbounds.isTop() && intervals.isTop();
 	}
 
 	@Override
-	public Pentagons bottom() {
-		return new Pentagons(upperbounds.bottom(), intervals.bottom());
-	}
+	public Pentagons bottom() {	return new Pentagons(upperbounds.bottom(), intervals.bottom());	}
 
 	@Override
 	public boolean isBottom() {
+		// since bottom() does not return a constant value, we have to override this method as well
+		// providing the logic for identifying the bottom element
 		return upperbounds.isBottom() && intervals.isBottom();
 	}
 
@@ -76,7 +81,7 @@ public class Pentagons
 
 				Interval state = this.intervals.getState(entry.getKey());
 				Interval boundState = this.intervals.getState(bound);
-				if (state.interval.getHigh().compareTo(boundState.interval.getLow()) < 0)
+				if (state.isBottom() || boundState.isTop() || state.interval.getHigh().compareTo(boundState.interval.getLow()) < 0)
 					continue;
 
 				return false;
@@ -89,37 +94,40 @@ public class Pentagons
 	public Pentagons lubAux(
 			Pentagons other)
 			throws SemanticException {
-		ValueEnvironment<UpperBounds> newBounds = upperbounds.glb(other.upperbounds);
+		ValueEnvironment<Interval> newIntervals = this.intervals.lub(other.intervals);
+
+		ValueEnvironment<UpperBounds> newBounds = upperbounds.lub(other.upperbounds);
 		for (Entry<Identifier, UpperBounds> entry : upperbounds)
 			newBounds = closeWithOther(entry.getKey(), entry.getValue(), other.intervals, newBounds);
 
 		for (Entry<Identifier, UpperBounds> entry : other.upperbounds)
 			newBounds = closeWithOther(entry.getKey(), entry.getValue(), intervals, newBounds);
 
-		return new Pentagons(newBounds, intervals.lub(other.intervals));
+		return new Pentagons(newBounds, newIntervals);
 	}
 
 	private ValueEnvironment<UpperBounds> closeWithOther(
-			Identifier id,
-			UpperBounds bounds,
-			ValueEnvironment<Interval> intervals,
+			Identifier x,
+			UpperBounds s,
+			ValueEnvironment<Interval> b,
 			ValueEnvironment<UpperBounds> currentClosure)
 			throws SemanticException {
-		Set<Identifier> closure = new HashSet<>();
-		Interval state = intervals.getState(id);
-		if (state.isBottom())
+		Interval x_intv = b.getState(x);
+		if (x_intv.isBottom())
 			return currentClosure;
 
-		for (Identifier bound : bounds) {
-			Interval boundState = intervals.getState(bound);
-			if (state.interval.getHigh().compareTo(boundState.interval.getLow()) < 0)
-				closure.add(bound);
+		Set<Identifier> closure = new HashSet<>();
+		for (Identifier y : s) {
+			Interval y_intv = b.getState(y);
+			if (x_intv.interval.getHigh().compareTo(y_intv.interval.getLow()) < 0)
+				closure.add(y);
 		}
 
-		if (!closure.isEmpty())
-			// glb is the union
-			return currentClosure.putState(id, currentClosure.getState(id).glb(new UpperBounds(closure)));
-		return currentClosure;
+		if (closure.isEmpty())
+			return currentClosure;
+
+		// glb is the union
+		return currentClosure.putState(x, currentClosure.getState(x).glb(new UpperBounds(closure)));
 	}
 
 	@Override

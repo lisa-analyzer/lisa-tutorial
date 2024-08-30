@@ -3,6 +3,7 @@ package it.unive.lisa.tutorial;
 import it.unive.lisa.AnalysisException;
 import it.unive.lisa.DefaultConfiguration;
 import it.unive.lisa.LiSA;
+import it.unive.lisa.analysis.heap.pointbased.FieldSensitivePointBasedHeap;
 import it.unive.lisa.conf.LiSAConfiguration;
 import it.unive.lisa.conf.LiSAConfiguration.GraphType;
 import it.unive.lisa.imp.IMPFrontend;
@@ -29,7 +30,7 @@ public class PentagonsTest {
         // we specify the analysis that we want to execute
 
         conf.abstractState = DefaultConfiguration.simpleState(
-                DefaultConfiguration.defaultHeapDomain(),
+                new FieldSensitivePointBasedHeap(),
                 new Pentagons(),
                 DefaultConfiguration.defaultTypeDomain());
 
