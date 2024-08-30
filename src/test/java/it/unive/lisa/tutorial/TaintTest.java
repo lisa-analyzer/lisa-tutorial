@@ -41,16 +41,16 @@ public class TaintTest {
 
         // we specify the analysis that we want to execute
 
-        conf.abstractState = DefaultConfiguration.simpleState(
+        /*conf.abstractState = DefaultConfiguration.simpleState(
                 DefaultConfiguration.defaultHeapDomain(),
                 new ValueEnvironment<>(new Taint()),
-                DefaultConfiguration.defaultTypeDomain());
+                DefaultConfiguration.defaultTypeDomain());*/
 
         // we specify to perform an interprocedural analysis (require to recognize calls to sources, sanitizers, and sinks)
         conf.interproceduralAnalysis = new ContextBasedAnalysis<>(FullStackToken.getSingleton());
 
         // the TaintChecker is executed after the Taint analysis and it checks if a tainted value is flowed in a sink
-        conf.semanticChecks.add(new TaintCheck());
+        /*conf.semanticChecks.add(new TaintCheck());*/
 
         // we instantiate LiSA with our configuration
         LiSA lisa = new LiSA(conf);

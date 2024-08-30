@@ -1,32 +1,11 @@
 package it.unive.lisa.tutorial;
 
-import it.unive.lisa.analysis.AnalysisState;
-import it.unive.lisa.analysis.AnalyzedCFG;
-import it.unive.lisa.analysis.SemanticException;
-import it.unive.lisa.analysis.SimpleAbstractState;
-import it.unive.lisa.analysis.heap.pointbased.PointBasedHeap;
-import it.unive.lisa.analysis.lattices.ExpressionSet;
-import it.unive.lisa.analysis.nonrelational.value.TypeEnvironment;
-import it.unive.lisa.analysis.nonrelational.value.ValueEnvironment;
-import it.unive.lisa.analysis.types.InferredTypes;
-import it.unive.lisa.checks.semantic.CheckToolWithAnalysisResults;
-import it.unive.lisa.checks.semantic.SemanticCheck;
 import it.unive.lisa.program.annotations.Annotation;
 import it.unive.lisa.program.annotations.matcher.AnnotationMatcher;
 import it.unive.lisa.program.annotations.matcher.BasicAnnotationMatcher;
-import it.unive.lisa.program.cfg.CFG;
-import it.unive.lisa.program.cfg.CodeMember;
-import it.unive.lisa.program.cfg.Parameter;
-import it.unive.lisa.program.cfg.statement.Statement;
-import it.unive.lisa.program.cfg.statement.call.Call;
-import it.unive.lisa.program.cfg.statement.call.ResolvedCall;
-import it.unive.lisa.program.cfg.statement.call.UnresolvedCall;
-import it.unive.lisa.symbolic.SymbolicExpression;
-import it.unive.lisa.symbolic.value.ValueExpression;
-import it.unive.lisa.util.StringUtilities;
 
 public class TaintCheck
-		implements
+		/*implements
 		// a semantic check is an iterator of CFGs that has access
 		// to the states computed by the analysis
 		SemanticCheck<
@@ -35,7 +14,7 @@ public class TaintCheck
 				SimpleAbstractState<
 						PointBasedHeap,
 						ValueEnvironment<Taint>,
-						TypeEnvironment<InferredTypes>>> {
+						TypeEnvironment<InferredTypes>>> */{
 
 	/**
 	 * The annotation used to mark sinks where tainted information should not flow.
@@ -49,7 +28,7 @@ public class TaintCheck
 	public static final AnnotationMatcher SINK_MATCHER = new BasicAnnotationMatcher(SINK_ANNOTATION);
 
 	// This method is called for each statement of each analyzed CFG
-	@Override
+	/*@Override
 	public boolean visit(
 			CheckToolWithAnalysisResults<SimpleAbstractState<PointBasedHeap, ValueEnvironment<Taint>, TypeEnvironment<InferredTypes>>> tool,
 			CFG graph,
@@ -102,22 +81,6 @@ public class TaintCheck
 							TypeEnvironment<InferredTypes>>> result,
 			UnresolvedCall call,
 			int parIndex) throws SemanticException {
-		// we retrieve the state after the parameter of the call has been evaluated
-		var state = result.getAnalysisStateAfter(call.getParameters()[parIndex]);
 
-		// our objective is to ask our taintedness analysis if the parameter can be tainted
-		// we first retrieve the parameter
-		ExpressionSet param = state.getComputedExpressions();
-
-		// the taint analysis is a value analysis: it can only deal with value expressions!
-		// we must rewrite each expression in param before inspecting it
-		for (SymbolicExpression e : state.getState().rewrite(param, call, state.getState())) {
-			ValueEnvironment<Taint> valueState = state.getState().getValueState();
-			// now we ask the taint analysis what is the taintedness level of our target parameter
-			Taint taintedness = valueState.eval((ValueExpression) e, call, state.getState());
-			if (taintedness.isPossiblyTainted())
-				return true;
-		}
-		return false;
-	}
+	}*/
 }
