@@ -21,6 +21,9 @@ import java.util.*;
 import java.util.Map.Entry;
 import java.util.function.Predicate;
 
+// NOTE: this import should be removed if you want to use the interval analysis defined locally
+import it.unive.lisa.analysis.numeric.Interval;
+
 /**
  * Implementation of the pentagons analysis of https://doi.org/10.1016/j.scico.2009.04.004
  */
