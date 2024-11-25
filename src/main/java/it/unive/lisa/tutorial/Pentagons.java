@@ -3,7 +3,6 @@ package it.unive.lisa.tutorial;
 import it.unive.lisa.analysis.*;
 import it.unive.lisa.analysis.lattices.Satisfiability;
 import it.unive.lisa.analysis.nonrelational.value.ValueEnvironment;
-import it.unive.lisa.analysis.numeric.Interval;
 import it.unive.lisa.analysis.value.ValueDomain;
 import it.unive.lisa.program.cfg.ProgramPoint;
 import it.unive.lisa.symbolic.value.BinaryExpression;
@@ -171,7 +170,7 @@ public class Pentagons
 						else
 							newBounds = upperbounds.putState(id, upperbounds.lattice.top());
 					} else if (be.getRight() instanceof Constant)
-						// r = x + 2 (where 2 is the constant)
+						// r = x - 2 (where 2 is the constant)
 						newBounds = newBounds.putState(id, upperbounds.getState(x).add(x));
 				}
 			}
