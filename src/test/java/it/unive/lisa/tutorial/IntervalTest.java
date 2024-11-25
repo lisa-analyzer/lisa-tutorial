@@ -27,7 +27,7 @@ public class IntervalTest {
 
 		// we specify the visual format of the analysis results
 		conf.analysisGraphs = GraphType.HTML;
-conf.wideningThreshold = 100;
+
 		// we specify the analysis that we want to execute
 		conf.abstractState = DefaultConfiguration.simpleState(
 				DefaultConfiguration.defaultHeapDomain(),
