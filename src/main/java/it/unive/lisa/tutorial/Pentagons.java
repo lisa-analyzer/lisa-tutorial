@@ -6,7 +6,6 @@ import it.unive.lisa.analysis.nonrelational.value.ValueEnvironment;
 import it.unive.lisa.analysis.value.ValueDomain;
 import it.unive.lisa.program.cfg.ProgramPoint;
 import it.unive.lisa.symbolic.value.BinaryExpression;
-import it.unive.lisa.symbolic.value.Constant;
 import it.unive.lisa.symbolic.value.Identifier;
 import it.unive.lisa.symbolic.value.ValueExpression;
 import it.unive.lisa.symbolic.value.operator.SubtractionOperator;
@@ -16,7 +15,6 @@ import it.unive.lisa.util.representation.MapRepresentation;
 import it.unive.lisa.util.representation.StringRepresentation;
 import it.unive.lisa.util.representation.StructuredRepresentation;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.SetUtils;
 
 import java.util.*;
 import java.util.Map.Entry;
@@ -33,8 +31,9 @@ public class Pentagons
 		// we exploit BaseLattice to avoid writing common-sense logic
 		BaseLattice<Pentagons> {
 
-	public StrictUpperBounds upperbounds;
-	public ValueEnvironment<Interval> intervals;
+	// client domains are just fields of this one
+	private final StrictUpperBounds upperbounds;
+	private final ValueEnvironment<Interval> intervals;
 
 	public Pentagons() {
 		this(new StrictUpperBounds().top(), new ValueEnvironment<>(new Interval()).top());
@@ -99,7 +98,10 @@ public class Pentagons
 		ValueEnvironment<Interval> newIntervals = this.intervals.lub(other.intervals);
 
 		// lub performs the intersection between the two
+		// this effectively builds s'
 		StrictUpperBounds newBounds = upperbounds.lub(other.upperbounds);
+
+		// the following builds s''
 		for (Identifier x : upperbounds.getKeys()) {
 			StrictUpperBounds.IdSet closure = newBounds.getState(x);
 
@@ -116,6 +118,7 @@ public class Pentagons
 			newBounds = newBounds.putState(x, closure);
 		}
 
+		// the following builds s'''
 		for (Identifier x : other.upperbounds.getKeys()) {
 			StrictUpperBounds.IdSet closure = newBounds.getState(x);
 
@@ -149,7 +152,6 @@ public class Pentagons
 			ProgramPoint pp,
 			SemanticOracle oracle)
 			throws SemanticException {
-
 		StrictUpperBounds newBounds = upperbounds.assign(id, expression, pp, oracle);
 		ValueEnvironment<Interval> newIntervals = intervals.assign(id, expression, pp, oracle);
 
@@ -179,24 +181,7 @@ public class Pentagons
 
 		}
 
-		return new Pentagons(newBounds, newIntervals);//.closure();
-	}
-
-	private Pentagons closure() throws SemanticException {
-		StrictUpperBounds newBounds = new StrictUpperBounds(upperbounds.lattice, upperbounds.getMap());
-
-		for (Identifier id1 : intervals.getKeys()) {
-			Set<Identifier> closure = new HashSet<>();
-			for (Identifier id2 : intervals.getKeys())
-				if (!id1.equals(id2))
-					if (intervals.getState(id1).interval.getHigh().compareTo(intervals.getState(id2).interval.getLow()) < 0)
-						closure.add(id2);
-			if (!closure.isEmpty())
-				// glb is the union
-				newBounds = newBounds.putState(id1,	newBounds.getState(id1).glb(new StrictUpperBounds.IdSet(closure)));
-		}
-
-		return new Pentagons(newBounds, intervals);
+		return new Pentagons(newBounds, newIntervals);
 	}
 
 	@Override
