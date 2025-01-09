@@ -1,14 +1,15 @@
 class upperbounds {
 
-	basic() {
-
-		def arr = new int[5];
+	basic(x) {
 		def i = 0;
+		def y = 0;
 
-		while(i < arraylen(arr)) {
-			arr[i] = i;
+		while(i < x) {
+		    y = y * 2;
 			i = i + 1;
 		}
+
+	    return y;
 	}
 
 }

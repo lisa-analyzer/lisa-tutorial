@@ -1,19 +1,18 @@
 package it.unive.lisa.tutorial;
 
-import it.unive.lisa.analysis.heap.pointbased.FieldSensitivePointBasedHeap;
-import org.junit.Test;
-
 import it.unive.lisa.AnalysisException;
 import it.unive.lisa.DefaultConfiguration;
 import it.unive.lisa.LiSA;
+import it.unive.lisa.analysis.heap.pointbased.FieldSensitivePointBasedHeap;
 import it.unive.lisa.analysis.nonrelational.value.ValueEnvironment;
 import it.unive.lisa.conf.LiSAConfiguration;
 import it.unive.lisa.conf.LiSAConfiguration.GraphType;
 import it.unive.lisa.imp.IMPFrontend;
 import it.unive.lisa.imp.ParsingException;
 import it.unive.lisa.program.Program;
+import org.junit.Test;
 
-public class UpperBoundsTest {
+public class StrictUpperBoundsTest {
 
     @Test
     public void testUpperBounds() throws ParsingException, AnalysisException {
@@ -24,7 +23,7 @@ public class UpperBoundsTest {
         LiSAConfiguration conf = new DefaultConfiguration();
 
         // we specify where we want files to be generated
-        conf.workdir = "outputs/upperbounds";
+        conf.workdir = "outputs/strictupperbounds";
 
         // we specify the visual format of the analysis results
         conf.analysisGraphs = GraphType.HTML;
@@ -33,7 +32,7 @@ public class UpperBoundsTest {
 
         conf.abstractState = DefaultConfiguration.simpleState(
                 new FieldSensitivePointBasedHeap(),
-                new ValueEnvironment<>(new UpperBounds()),
+                new StrictUpperBounds(),
                 DefaultConfiguration.defaultTypeDomain());
 
         // we instantiate LiSA with our configuration

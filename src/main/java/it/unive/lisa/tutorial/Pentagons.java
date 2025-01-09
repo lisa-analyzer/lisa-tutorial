@@ -16,6 +16,7 @@ import it.unive.lisa.util.representation.MapRepresentation;
 import it.unive.lisa.util.representation.StringRepresentation;
 import it.unive.lisa.util.representation.StructuredRepresentation;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.SetUtils;
 
 import java.util.*;
 import java.util.Map.Entry;
@@ -32,15 +33,15 @@ public class Pentagons
 		// we exploit BaseLattice to avoid writing common-sense logic
 		BaseLattice<Pentagons> {
 
-	public ValueEnvironment<UpperBounds> upperbounds;
+	public StrictUpperBounds upperbounds;
 	public ValueEnvironment<Interval> intervals;
 
 	public Pentagons() {
-		this(new ValueEnvironment<>(new UpperBounds()).top(), new ValueEnvironment<>(new Interval()).top());
+		this(new StrictUpperBounds().top(), new ValueEnvironment<>(new Interval()).top());
 	}
 
 	public Pentagons(
-			ValueEnvironment<UpperBounds> upperbounds,
+			StrictUpperBounds upperbounds,
 			ValueEnvironment<Interval> intervals) {
 		this.upperbounds = upperbounds;
 		this.intervals = intervals;
@@ -73,14 +74,16 @@ public class Pentagons
 		if (!this.intervals.lessOrEqual(other.intervals))
 			return false;
 
-		for (Entry<Identifier, UpperBounds> entry : other.upperbounds)
+		for (Entry<Identifier, StrictUpperBounds.IdSet> entry : other.upperbounds)
 			for (Identifier bound : entry.getValue()) {
 				if (this.upperbounds.getState(entry.getKey()).contains(bound))
 					continue;
 
 				Interval state = this.intervals.getState(entry.getKey());
 				Interval boundState = this.intervals.getState(bound);
-				if (state.isBottom() || boundState.isTop() || state.interval.getHigh().compareTo(boundState.interval.getLow()) < 0)
+				if (state.isBottom()
+						|| boundState.isTop()
+						|| state.interval.getHigh().compareTo(boundState.interval.getLow()) < 0)
 					continue;
 
 				return false;
@@ -95,38 +98,39 @@ public class Pentagons
 			throws SemanticException {
 		ValueEnvironment<Interval> newIntervals = this.intervals.lub(other.intervals);
 
-		ValueEnvironment<UpperBounds> newBounds = upperbounds.lub(other.upperbounds);
-		for (Entry<Identifier, UpperBounds> entry : upperbounds)
-			newBounds = closeWithOther(entry.getKey(), entry.getValue(), other.intervals, newBounds);
+		// lub performs the intersection between the two
+		StrictUpperBounds newBounds = upperbounds.lub(other.upperbounds);
+		for (Identifier x : upperbounds.getKeys()) {
+			StrictUpperBounds.IdSet closure = newBounds.getState(x);
 
-		for (Entry<Identifier, UpperBounds> entry : other.upperbounds)
-			newBounds = closeWithOther(entry.getKey(), entry.getValue(), intervals, newBounds);
+			Interval b2_x = other.intervals.getState(x);
+			if (!b2_x.isBottom()) {
+				for (Identifier y : upperbounds.getState(x)) {
+					Interval b2_y = other.intervals.getState(y);
+					if (!b2_y.isBottom() && b2_x.interval.getHigh().compareTo(b2_y.interval.getLow()) < 0) {
+						closure = closure.add(y);
+					}
+				}
+			}
 
-		return new Pentagons(newBounds, newIntervals);
-	}
-
-	private ValueEnvironment<UpperBounds> closeWithOther(
-			Identifier x,
-			UpperBounds s,
-			ValueEnvironment<Interval> b,
-			ValueEnvironment<UpperBounds> currentClosure)
-			throws SemanticException {
-		Interval x_intv = b.getState(x);
-		if (x_intv.isBottom())
-			return currentClosure;
-
-		Set<Identifier> closure = new HashSet<>();
-		for (Identifier y : s) {
-			Interval y_intv = b.getState(y);
-			if (x_intv.interval.getHigh().compareTo(y_intv.interval.getLow()) < 0)
-				closure.add(y);
+			newBounds = newBounds.putState(x, closure);
 		}
 
-		if (closure.isEmpty())
-			return currentClosure;
+		for (Identifier x : other.upperbounds.getKeys()) {
+			StrictUpperBounds.IdSet closure = newBounds.getState(x);
 
-		// glb is the union
-		return currentClosure.putState(x, currentClosure.getState(x).glb(new UpperBounds(closure)));
+			Interval b1_x = intervals.getState(x);
+			if (!b1_x.isBottom())
+				for (Identifier y : other.upperbounds.getState(x)) {
+					Interval b1_y = intervals.getState(y);
+					if (!b1_y.isBottom() && b1_x.interval.getHigh().compareTo(b1_y.interval.getLow()) < 0)
+						closure = closure.add(y);
+				}
+
+			newBounds = newBounds.putState(x, closure);
+		}
+
+		return new Pentagons(newBounds, newIntervals);
 	}
 
 	@Override
@@ -146,7 +150,7 @@ public class Pentagons
 			SemanticOracle oracle)
 			throws SemanticException {
 
-		ValueEnvironment<UpperBounds> newBounds = upperbounds.assign(id, expression, pp, oracle);
+		StrictUpperBounds newBounds = upperbounds.assign(id, expression, pp, oracle);
 		ValueEnvironment<Interval> newIntervals = intervals.assign(id, expression, pp, oracle);
 
 		if (expression instanceof BinaryExpression) {
@@ -169,19 +173,17 @@ public class Pentagons
 							newBounds = upperbounds.putState(id, upperbounds.getState(x).add(x));
 						else
 							newBounds = upperbounds.putState(id, upperbounds.lattice.top());
-					} else if (be.getRight() instanceof Constant)
-						// r = x - 2 (where 2 is the constant)
-						newBounds = newBounds.putState(id, upperbounds.getState(x).add(x));
+					}
 				}
 			}
 
 		}
 
-		return new Pentagons(newBounds, newIntervals).closure();
+		return new Pentagons(newBounds, newIntervals);//.closure();
 	}
 
 	private Pentagons closure() throws SemanticException {
-		ValueEnvironment<UpperBounds> newBounds = new ValueEnvironment<>(upperbounds.lattice, upperbounds.getMap());
+		StrictUpperBounds newBounds = new StrictUpperBounds(upperbounds.lattice, upperbounds.getMap());
 
 		for (Identifier id1 : intervals.getKeys()) {
 			Set<Identifier> closure = new HashSet<>();
@@ -191,7 +193,7 @@ public class Pentagons
 						closure.add(id2);
 			if (!closure.isEmpty())
 				// glb is the union
-				newBounds = newBounds.putState(id1,	newBounds.getState(id1).glb(new UpperBounds(closure)));
+				newBounds = newBounds.putState(id1,	newBounds.getState(id1).glb(new StrictUpperBounds.IdSet(closure)));
 		}
 
 		return new Pentagons(newBounds, intervals);
