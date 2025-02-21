@@ -19,6 +19,7 @@ public class StrictUpperBoundsTest {
         // we parse the program to get the CFG representation of the code in it
         Program program = IMPFrontend.processFile("inputs/upperbounds.imp");
 
+
         // we build a new configuration for the analysis
         LiSAConfiguration conf = new DefaultConfiguration();
 
