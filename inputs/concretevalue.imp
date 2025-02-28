@@ -7,4 +7,11 @@ class concretevalue {
 		def m = i * j;
 		def d = i / j;
 	}
+
+	ifstatement() {
+	    def i = 0;
+	    if(i > 0)
+	        i = 1;
+	    def j = i * 0;
+	}
 }

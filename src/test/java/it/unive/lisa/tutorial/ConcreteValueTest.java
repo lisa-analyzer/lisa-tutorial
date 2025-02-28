@@ -31,7 +31,9 @@ public class ConcreteValueTest {
 		// we specify the analysis that we want to execute
 		conf.abstractState = DefaultConfiguration.simpleState(
 				DefaultConfiguration.defaultHeapDomain(),
-				new ValueEnvironment<>(ConcreteValue.TOP),
+				new ValueEnvironment<>(ConcreteValue.TOP
+
+				),
 				DefaultConfiguration.defaultTypeDomain());
 
 		conf.openCallPolicy = ReturnTopPolicy.INSTANCE;
