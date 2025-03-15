@@ -14,7 +14,7 @@ public class IntervallesTest {
     @Test
     public void testIntervalles() throws ParsingException {
         // we parse the program to get the CFG representation of the code in it
-        Program program = IMPFrontend.processFile("inputs/setofintegervalues.imp");
+        Program program = IMPFrontend.processFile("inputs/intervalles.imp");
 
         // we build a new configuration for the analysis
         LiSAConfiguration conf = new DefaultConfiguration();
