@@ -4,13 +4,17 @@ import it.unive.lisa.analysis.Lattice;
 import it.unive.lisa.analysis.SemanticException;
 import it.unive.lisa.analysis.SemanticOracle;
 import it.unive.lisa.analysis.nonrelational.value.BaseNonRelationalValueDomain;
+import it.unive.lisa.analysis.nonrelational.value.ValueEnvironment;
 import it.unive.lisa.program.cfg.ProgramPoint;
 import it.unive.lisa.symbolic.value.Constant;
+import it.unive.lisa.symbolic.value.Identifier;
+import it.unive.lisa.symbolic.value.ValueExpression;
 import it.unive.lisa.symbolic.value.operator.AdditionOperator;
 import it.unive.lisa.symbolic.value.operator.DivisionOperator;
 import it.unive.lisa.symbolic.value.operator.MultiplicationOperator;
 import it.unive.lisa.symbolic.value.operator.SubtractionOperator;
 import it.unive.lisa.symbolic.value.operator.binary.BinaryOperator;
+import it.unive.lisa.symbolic.value.operator.binary.ComparisonLe;
 import it.unive.lisa.symbolic.value.operator.unary.NumericNegation;
 import it.unive.lisa.symbolic.value.operator.unary.UnaryOperator;
 import it.unive.lisa.util.representation.StringRepresentation;
@@ -31,11 +35,11 @@ public class Signs
 
 	// as this is a finite lattice, we can optimize by having constant elements
 	// for each of them
-	private static final Signs BOTTOM = new Signs(-10);
-	private static final Signs NEGATIVE = new Signs(-1);
-	private static final Signs ZERO = new Signs(0);
-	private static final Signs POSITIVE = new Signs(1);
-	private static final Signs TOP = new Signs(10);
+	public static final Signs BOTTOM = new Signs(-10);
+	public static final Signs NEGATIVE = new Signs(-1);
+	public static final Signs ZERO = new Signs(0);
+	public static final Signs POSITIVE = new Signs(1);
+	public static final Signs TOP = new Signs(10);
 
 	// this is just needed to distinguish the elements
 	private final int sign;
@@ -216,5 +220,20 @@ public class Signs
 		}
 
 		return TOP;
+	}
+
+	@Override
+	public ValueEnvironment<Signs> assumeBinaryExpression(ValueEnvironment<Signs> environment, BinaryOperator operator, ValueExpression left, ValueExpression right, ProgramPoint src, ProgramPoint dest, SemanticOracle oracle) throws SemanticException {
+		if(operator instanceof ComparisonLe) {
+			if(left instanceof Identifier) {
+				Signs value = environment.getState((Identifier) left);
+				if(value == Signs.POSITIVE) {
+					if(right instanceof Identifier) {
+						return environment.putState((Identifier) right, Signs.POSITIVE);
+					}
+				}
+			}
+		}
+		return BaseNonRelationalValueDomain.super.assumeBinaryExpression(environment, operator, left, right, src, dest, oracle);
 	}
 }

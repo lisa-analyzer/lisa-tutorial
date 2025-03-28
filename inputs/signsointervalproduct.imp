@@ -1,0 +1,7 @@
+class cartesianproduct {
+	basic(a) {
+	    def x = 1;
+	    while(x > a)
+	        x = x + 1;
+	}
+}

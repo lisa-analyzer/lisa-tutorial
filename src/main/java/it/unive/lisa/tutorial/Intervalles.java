@@ -3,16 +3,20 @@ package it.unive.lisa.tutorial;
 import it.unive.lisa.analysis.SemanticException;
 import it.unive.lisa.analysis.SemanticOracle;
 import it.unive.lisa.analysis.nonrelational.value.BaseNonRelationalValueDomain;
+import it.unive.lisa.analysis.nonrelational.value.ValueEnvironment;
 import it.unive.lisa.program.cfg.ProgramPoint;
 import it.unive.lisa.symbolic.value.Constant;
+import it.unive.lisa.symbolic.value.Identifier;
+import it.unive.lisa.symbolic.value.ValueExpression;
 import it.unive.lisa.symbolic.value.operator.AdditionOperator;
 import it.unive.lisa.symbolic.value.operator.binary.BinaryOperator;
+import it.unive.lisa.symbolic.value.operator.binary.ComparisonGt;
 import it.unive.lisa.util.representation.StringRepresentation;
 import it.unive.lisa.util.representation.StructuredRepresentation;
 
 public class Intervalles implements BaseNonRelationalValueDomain<Intervalles>  {
     public static final Intervalles TOP = new Intervalles(IntOrInf.infinite, IntOrInf.infinite);
-    private final IntOrInf min, max;
+    final IntOrInf min, max;
 
     public Intervalles(IntOrInf min, IntOrInf max) {
         this.min = min;
@@ -74,7 +78,32 @@ public class Intervalles implements BaseNonRelationalValueDomain<Intervalles>  {
         return top();
     }
 
-    private static class IntOrInf {
+    @Override
+    public ValueEnvironment<Intervalles> assumeBinaryExpression(ValueEnvironment<Intervalles> environment, BinaryOperator operator, ValueExpression left, ValueExpression right, ProgramPoint src, ProgramPoint dest, SemanticOracle oracle) throws SemanticException {
+        if(operator instanceof ComparisonGt) {
+            if(left instanceof Identifier) {
+                Identifier variable = (Identifier) left;
+                if(right instanceof Constant) {
+                    Intervalles value = this.evalNonNullConstant((Constant) right, src, oracle);
+                    return environment.putState(variable, new Intervalles(new IntOrInf(value.getMin()+1), IntOrInf.infinite));
+                }
+            }
+        }
+        return BaseNonRelationalValueDomain.super.assumeBinaryExpression(environment, operator, left, right, src, dest, oracle);
+
+    }
+
+    public Integer getMin() {
+        if(min.isInf()) return null;
+        else return min.value;
+    }
+
+    public Integer getMax() {
+        if(max.isInf()) return null;
+        else return max.value;
+    }
+
+    public static class IntOrInf {
         boolean inf = false;
         final int value;
         static IntOrInf infinite = new IntOrInf();
