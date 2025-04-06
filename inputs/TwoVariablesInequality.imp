@@ -1,0 +1,35 @@
+class twovariablesinequality {
+
+    basic(){
+        def x = 0;
+        def z = 1;
+        def u = z - 2;
+        def y = x + 5;
+        if((2*x+5*y) <= 3){
+            def w=3;
+        }
+    }
+
+    applyClosureAndTransitivity(){
+        def x = 0;
+        def z = 1;
+        def y = x + 5;
+        y = x + 3;
+        x = z + 5;
+    }
+
+    condition(){
+        def a = 1;
+        def b = 7;
+        def x = 1;
+        def y = 1;
+
+        if((1*x + 5*y) <= 4){
+            def z=2;
+        }
+        else {
+            if((2*x + 4*y) <= 5)
+                def z=3;
+        }
+    }
+}
