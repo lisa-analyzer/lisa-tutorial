@@ -14,7 +14,7 @@ import org.junit.Test;
 public class ConcreteValueTest {
 
 	@Test
-	public void testInterval() throws ParsingException, AnalysisException {
+	public void testConcreteValue() throws ParsingException, AnalysisException {
 		// we parse the program to get the CFG representation of the code in it
 		Program program = IMPFrontend.processFile("inputs/concretevalue.imp");
 
