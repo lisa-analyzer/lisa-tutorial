@@ -14,7 +14,7 @@ import org.junit.Test;
 public class SetConcreteValueTest {
 
 	@Test
-	public void testConcreteValue() throws ParsingException, AnalysisException {
+	public void testSetConcreteValue() throws ParsingException, AnalysisException {
 		// we parse the program to get the CFG representation of the code in it
 		Program program = IMPFrontend.processFile("inputs/setconcretevalue.imp");
 
@@ -30,7 +30,7 @@ public class SetConcreteValueTest {
 		// we specify the analysis that we want to execute
 		conf.abstractState = DefaultConfiguration.simpleState(
 				DefaultConfiguration.defaultHeapDomain(),
-				new ValueEnvironment<>(new SetOfConcreteValues()),
+				new ValueEnvironment<>(new SetOfConcreteValues(1)),
 				DefaultConfiguration.defaultTypeDomain());
 
 		// we instantiate LiSA with our configuration
