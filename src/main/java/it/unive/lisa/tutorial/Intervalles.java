@@ -32,6 +32,25 @@ public class Intervalles implements BaseNonRelationalValueDomain<Intervalles> {
     }
 
     @Override
+    public Intervalles wideningAux(Intervalles other) throws SemanticException {
+        if(this.isBottom())
+            return other;
+        if(other.isBottom())
+            return this;
+        if (this.isTop() || other.isTop())
+            return this.top();
+        IntOrInf left = min(this.left, other.left),
+                right = max(this.right, other.right);
+        if((! other.right.isPlusInf()) && (! this.right.isPlusInf()) &&
+                other.right.value>this.right.value)
+            right = new IntOrInf(true);
+        if((! other.left.isMinusInf()) && (! this.left.isMinusInf()) &&
+                this.left.value<other.left.value)
+            left = new IntOrInf(false);
+        return new Intervalles(left, right);
+    }
+
+    @Override
     public Intervalles lubAux(Intervalles other) throws SemanticException {
         if(this.isBottom())
             return other;
@@ -117,9 +136,22 @@ public class Intervalles implements BaseNonRelationalValueDomain<Intervalles> {
             HashSet<Integer> s = new HashSet<>();
             if (operator instanceof AdditionOperator)
                 return new Intervalles(add(left.left, right.left), add(left.right, right.right));
+            if(operator instanceof SubtractionOperator)
+                return new Intervalles(subtract(left.left, right.right), subtract(left.right, right.left));
             //else throw new SemanticException("Unsupported operator");
         }
         return BaseNonRelationalValueDomain.super.evalBinaryExpression(operator, left, right, pp, oracle);
+    }
+    private static IntOrInf subtract(IntOrInf left, IntOrInf right) throws SemanticException {
+        if(left.isPlusInf() && right.isPlusInf())
+            throw new SemanticException("Cannot add minus and plus infinite");
+        if(right.isMinusInf() && left.isMinusInf())
+            throw new SemanticException("Cannot add minus and plus infinite");
+        if(left.isPlusInf() && right.isMinusInf())
+            return new IntOrInf(true);
+        if(left.isMinusInf() && right.isPlusInf())
+            return new IntOrInf(false);
+        return new IntOrInf(left.value-right.value);
     }
     private static IntOrInf add(IntOrInf left, IntOrInf right) throws SemanticException {
         if(left.isPlusInf() && right.isMinusInf())
@@ -132,6 +164,7 @@ public class Intervalles implements BaseNonRelationalValueDomain<Intervalles> {
             return new IntOrInf(false);
         return new IntOrInf(left.value+right.value);
     }
+
     static class IntOrInf {
 
 

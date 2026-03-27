@@ -8,6 +8,13 @@ class intervalles {
 		def d = i / j;
 	}
 
+	boucle(a) {
+		def i = 0;
+		while(i < a) {
+			i = i + 1;
+		}
+	}
+
 	branches(a) {
 	    def x = 10;
 	    def y = 20;
@@ -15,7 +22,7 @@ class intervalles {
 	        x = -10;
 	    else y = 0;
 	    def z = x + y;
-	    def k = x / y;
+	    def k = x - y;
 	}
 
 
