@@ -32,9 +32,9 @@ public class Signs
 	// as this is a finite lattice, we can optimize by having constant elements
 	// for each of them
 	private static final Signs BOTTOM = new Signs(-10);
-	private static final Signs NEGATIVE = new Signs(-1);
-	private static final Signs ZERO = new Signs(0);
-	private static final Signs POSITIVE = new Signs(1);
+	static final Signs NEGATIVE = new Signs(-1);
+	static final Signs ZERO = new Signs(0);
+	static final Signs POSITIVE = new Signs(1);
 	private static final Signs TOP = new Signs(10);
 
 	// this is just needed to distinguish the elements

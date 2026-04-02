@@ -16,6 +16,8 @@ public class Intervalles implements BaseNonRelationalValueDomain<Intervalles> {
     private IntOrInf left, right;
     private final static Intervalles TOP, BOTTOM;
 
+
+
     static {
         TOP = new Intervalles(new IntOrInf(false), new IntOrInf(true));
         BOTTOM = new Intervalles(new IntOrInf(1), new IntOrInf(-1));
@@ -26,7 +28,7 @@ public class Intervalles implements BaseNonRelationalValueDomain<Intervalles> {
         this.right = new IntOrInf(value);
     }
 
-    private Intervalles(IntOrInf left, IntOrInf right) {
+    Intervalles(IntOrInf left, IntOrInf right) {
         this.left = left;
         this.right = right;
     }
@@ -127,6 +129,10 @@ public class Intervalles implements BaseNonRelationalValueDomain<Intervalles> {
             return new Intervalles(((Integer) constant.getValue()).intValue());
         return BaseNonRelationalValueDomain.super.evalNonNullConstant(constant, pp, oracle);
     }
+
+
+    IntOrInf getLeft() {return left;}
+    IntOrInf getRight() {return right;}
 
     @Override
     public Intervalles evalBinaryExpression(BinaryOperator operator, Intervalles left, Intervalles right, ProgramPoint pp, SemanticOracle oracle) throws SemanticException {
