@@ -1,0 +1,21 @@
+class notequals {
+	basic(z) {
+	    def x = 0;
+	    def y = x + 1;
+	    if (z!=y) {
+	       def w = 0;
+	       x = y + 1;
+	    }
+	}
+
+	boucle(z) {
+	    def x = 0;
+	    def y = x + 1;
+	    while (z!=y) {
+	        x = y + 1;
+	        y = z;
+	    }
+	}
+
+
+}
