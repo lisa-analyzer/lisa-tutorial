@@ -1,0 +1,68 @@
+class extendedSigns {
+
+    basic() {
+        def a = 3;
+        def b = -5;
+        def sum = a + b;
+        def diff = a - b;
+        def prod = a * b;
+        def q = a / b;
+    }
+
+    negation() {
+        def p = 5;
+        def np = -p;
+        def n = -3;
+        def nn = -n;
+        def z = 0;
+        def nz = -z;
+    }
+
+    addition() {
+        def pos = 3;
+        def neg = -5;
+        def zero = 0;
+        def pp = pos + pos;
+        def nn = neg + neg;
+        def pn = pos + neg;
+        def pz = pos + zero;
+        def nz = neg + zero;
+    }
+
+    multiplication() {
+        def pos = 3;
+        def neg = -5;
+        def zero = 0;
+        def pp = pos * pos;
+        def nn = neg * neg;
+        def pn = pos * neg;
+        def pz = pos * zero;
+    }
+
+    division() {
+        def pos = 10;
+        def neg = -5;
+        def zero = 0;
+        def pp = pos / pos;
+        def nn = neg / neg;
+        def pn = pos / neg;
+        def zp = zero / pos;
+    }
+
+    loop() {
+        def i = 0;
+        def c = 1;
+        while (i < 10)
+            i = i + c;
+        return i;
+    }
+
+    branches(n) {
+        def x = 0;
+        if (n > 0)
+            x = x + n;
+        else
+            x = x - 1;
+        return x;
+    }
+}
