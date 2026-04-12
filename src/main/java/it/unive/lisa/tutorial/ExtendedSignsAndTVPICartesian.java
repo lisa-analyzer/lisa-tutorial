@@ -1,4 +1,4 @@
-package it.unive.lisa.tutorial.test;
+package it.unive.lisa.tutorial;
 
 import it.unive.lisa.analysis.combination.CartesianProduct;
 import it.unive.lisa.analysis.nonrelational.value.ValueEnvironment;

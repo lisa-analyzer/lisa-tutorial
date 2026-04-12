@@ -1,4 +1,4 @@
-package it.unive.lisa.tutorial.test;
+package it.unive.lisa.tutorial;
 
 import it.unive.lisa.analysis.Lattice;
 import it.unive.lisa.analysis.SemanticException;

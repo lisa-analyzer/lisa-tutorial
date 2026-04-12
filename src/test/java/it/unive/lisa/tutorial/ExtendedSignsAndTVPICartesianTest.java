@@ -1,4 +1,4 @@
-package it.unive.lisa.tutorial.src.it.unive.lisa.tutorial;
+package it.unive.lisa.tutorial;
 
 import it.unive.lisa.AnalysisException;
 import it.unive.lisa.DefaultConfiguration;
